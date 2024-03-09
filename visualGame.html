@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        /* Estilos CSS para el cuerpo de la página */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #007BFF;
+            height: 100vh;
+            margin: 0;
+            color: white; /* Color de texto blanco */
+            font-family: Arial, sans-serif; /* Fuente Arial o una fuente sans-serif similar */
+        }
+
+        /* Estilos CSS para el título */
+        h1 {
+            margin-bottom: 20px; /* Espacio inferior para separar el título del botón */
+            font-size: 24px; /* Tamaño de fuente más grande */
+        }
+
+        /* Estilos CSS para el botón de inicio */
+        #startButton {
+            background-color: yellow; /* Color de fondo amarillo */
+            color: black; /* Color de texto negro */
+            padding: 10px 20px; /* Espaciado interno */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px; /* Espacio inferior para separar el botón del tablero */
+        }
+
+        /* Estilos CSS para el botón de inicio al pasar el ratón por encima */
+        #startButton:hover {
+            background-color: #FFD700; /* Cambiar el color de fondo al pasar el ratón por encima */
+        }
+
+        /* Estilos CSS para el contenedor de la cuadrícula */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px); /* Tres columnas de 100px cada una */
+            grid-template-rows: repeat(3, 100px); /* Tres filas de 100px cada una */
+            gap: 5px; /* Espacio entre celdas */
+            margin-top: 20px; /* Espacio superior para separar el tablero del título y el botón */
+            display: none; /* Ocultar el contenedor de la cuadrícula inicialmente */
+        }
+
+        /* Estilos CSS para las celdas */
+        .cell {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: background-color 0.5s ease-in-out;
+            box-sizing: border-box;
+        }
+
+        /* Estilos CSS para el efecto de brillo */
+        .flash {
+            background-color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+<body>
+    <h1>Secuence Memory Test</h1> <!-- Título de la portada -->
+    <button id="startButton" onclick="startGame()">Start</button> <!-- Botón de inicio -->
+
+    <div id="level">Nivel: 1</div> <!-- Elemento HTML para mostrar el nivel -->
+
+    <!-- Contenedor de la cuadrícula -->
+    <div class="grid-container">
+        <!-- Celdas de la cuadrícula -->
+        <div class="cell" id="cell1" onclick="checkPattern(1)"></div>
+        <div class="cell" id="cell2" onclick="checkPattern(2)"></div>
+        <div class="cell" id="cell3" onclick="checkPattern(3)"></div>
+        <div class="cell" id="cell4" onclick="checkPattern(4)"></div>
+        <div class="cell" id="cell5" onclick="checkPattern(5)"></div>
+        <div class="cell" id="cell6" onclick="checkPattern(6)"></div>
+        <div class="cell" id="cell7" onclick="checkPattern(7)"></div>
+        <div class="cell" id="cell8" onclick="checkPattern(8)"></div>
+        <div class="cell" id="cell9" onclick="checkPattern(9)"></div>
+    </div>
+
+    <script>
+        // Función para iniciar el juego al hacer clic en el botón "Start"
+        function startGame() {
+            // Mostrar el contenedor de la cuadrícula
+            document.querySelector('.grid-container').style.display = 'grid';
+
+            // Ocultar el botón de inicio
+            document.getElementById('startButton').style.display = 'none';
+
+            // Mostrar el nivel inicial
+            levelDisplay.textContent = `Nivel: ${level}`;
+
+            // Iniciar la secuencia y el juego
+            showSequence();
+        }
+
+        // Selección de todas las celdas por su clase
+        const cells = document.querySelectorAll('.cell');
+        const sequence = []; // Array para almacenar la secuencia de botones iluminados
+        let currentStep = 0; // Variable para rastrear el paso actual en la secuencia
+        let level = 1; // Variable para almacenar el nivel actual
+
+        // Elemento HTML para mostrar el nivel
+        const levelDisplay = document.getElementById('level');
+
+        // Función para generar una secuencia aleatoria y mostrarla
+        function showSequence() {
+            const randomCellIndex = Math.floor(Math.random() * cells.length);
+            sequence.push(randomCellIndex + 1);
+            animateSequence(0);
+        }
+
+        // Función para animar una secuencia
+        function animateSequence(step) {
+            if (step < sequence.length) {
+                animateCell(sequence[step] - 1);
+                setTimeout(() => {
+                    resetCell(sequence[step] - 1);
+                    animateSequence(step + 1);
+                }, 1000);
+            } else {
+                enableClick(); // Habilitar clics de usuario después de que se complete la secuencia
+            }
+        }
+
+        // Función para animar una celda
+        function animateCell(index) {
+            cells[index].classList.add('flash'); // Agregar la clase para el efecto de brillo
+        }
+
+        // Función para restablecer el color de una celda
+        function resetCell(index) {
+            cells[index].classList.remove('flash'); // Quitar la clase para el efecto de brillo
+        }
+
+        // Función para habilitar clics de usuario
+        function enableClick() {
+            cells.forEach(cell => {
+                cell.style.pointerEvents = 'auto'; // Habilitar clics
+            });
+        }
+
+        // Función para deshabilitar clics de usuario
+        function disableClick() {
+            cells.forEach(cell => {
+                cell.style.pointerEvents = 'none'; // Deshabilitar clics
+            });
+        }
+
+        // Función para comprobar el patrón ingresado por el usuario
+        function checkPattern(cellId) {
+            if (sequence[currentStep] === cellId) {
+                animateCell(cellId - 1); // Mostrar efecto de brillo en la celda seleccionada
+                setTimeout(() => {
+                    resetCell(cellId - 1); // Restablecer el color de la celda después de un breve tiempo
+                }, 500);
+                currentStep++;
+                if (currentStep === sequence.length) {
+                    setTimeout(() => {
+                        currentStep = 0;
+                        disableClick(); // Deshabilitar clics mientras se muestra la nueva secuencia
+                        level++; // Aumentar el nivel
+                        levelDisplay.textContent = `Nivel: ${level}`; // Actualizar el nivel mostrado
+                        showSequence();
+                    }, 1000);
+                }
+            } else {
+                alert('¡Patrón incorrecto! El juego ha terminado.');
+                sequence.length = 0; // Limpiar la secuencia
+                currentStep = 0; // Reiniciar el paso actual
+                level = 1; // Reiniciar el nivel
+                levelDisplay.textContent = `Nivel: ${level}`; // Actualizar el nivel mostrado
+                showSequence(); // Mostrar la secuencia inicial nuevamente
+            }
+        }
+    </script>
+</body>
+</html>

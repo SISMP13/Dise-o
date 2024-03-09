@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #5395ff;
+    padding: 50px;
+}
+
+#game-container {
+    background-color: #ffffff;
+    border: 1px solid #f7f5ff;
+    padding: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#number-display {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 24px;
+    border: 1px solid #c0bec9;
+    border-radius: 4px;
+    width: 50%;
+    margin: 10px auto; /* Centrar el contenedor horizontalmente */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar cualquier contenido que se desborde */
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f7cf4c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #f7cf4c;
+}
+
+.incorrect {
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+}
+
+.incorrect input {
+    border: 1px solid #ff0000;
+}
+
+.incorrect button {
+    background-color: #ff0000;
+}
+
+.incorrect button:hover {
+    background-color: #cc0000;
+}
+
+.incorrect p {
+    color: #ff0000;
+}
+
+.incorrect #number-display {
+    color: #ff0000;
+}
+
+.incorrect input[type="text"] {
+    border: 1px solid #ff0000;
+}
+
+.incorrect button {
+    background-color: #ff0000;
+}
+
+.incorrect button:hover {
+    background-color: #cc0000;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#number-display {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#user-input {
+    margin-bottom: 10px;
+}
+
+#level-indicator {
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin: 5%;
+}
+
+#result {
+    margin-bottom: 20px;
+    font-size: 40px;
+    color : rgb(255, 255, 255)
+}
+
+#restart-button {
+    display: none;
+}
+
+#progress-bar-container {
+    width: 50%; /* Ancho del contenedor de la barra de progreso */
+    height: 10px; /* Altura de la barra de progreso */
+    background-color: #f0f0f0; /* Color de fondo del contenedor */
+    margin: 10px auto; /* Centrar el contenedor horizontalmente */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar cualquier contenido que se desborde */
+}
+
+#progress-bar {
+    height: 100%; /* Altura de la barra de progreso */
+    background-color: #b8b8b8; /* Color de la barra de progreso */
+    width: 0%; /* Ancho inicial de la barra de progreso */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.correct-message {
+    background-color: #8bc34a; /* Verde claro */
+    color: #ffffff; /* Blanco */
+    font-size: 24px; /* Tamaño grande */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centrar texto */
+}
+
+
+
+
+.incorrect-message {
+    background-color: #ff1100e2; /* Rojo claro */
+    color: #ffffff; /* Blanco */
+    font-size: 18px; /* Tamaño de fuente */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Centrar texto */
+    font-size: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+}
